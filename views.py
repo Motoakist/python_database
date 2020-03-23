@@ -2,7 +2,7 @@ from .database import db
 from .app import app
 from flask import Flask, render_template, request, redirect
 # url_for generates url (if you want to use css or codes which you made on your own)
-from .models import User, Login, Signup
+from .models import User, Login
 
 @app.route('/', methods=['POST','GET'])
 def index():
