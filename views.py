@@ -7,7 +7,30 @@ from .models import User, Login
 @app.route('/', methods=['POST','GET'])
 def index():
     if request.method == 'POST':
+        # filter_by() <--- uses to filter the records in the table before the first() method will
+        #                   execute/run
+        # filter_by() <--- means if will look for the username and password entered by the user in
+        #                   the form. both values should be on the same row/record
+        # first() <--- this method will display/return the first occurence of the entered vaules
+        login = Login.query.filter_by(uname=request.form['username'],password=request.form['password']).first()
+
+        # example: uname = test, password = a <--- query will return FALSE since both data DO NOT BELONG
+        #                                           to the same record
+        # uname = test, password = test <--- query will return TRUE since both BELONGS TO THE SAME RECORD
+        if login:
+            return redirect('/viewall')
+        else:
+            return 'Error in logging in'
+        print('success')
+    else:
+        return render_template('login.html')
+
+@app.route('/signup',methods=['POST', 'GET'])
+def signup():
+    if request.method == 'POST':
         login = Login(uname=request.form['username'], password=request.form['pass'])
+        # signup = Login.query.filter_by(uname=request.form['name2'],password=request.form['pass2']).first()
+        
         try:
             db.session.add(login)
             db.session.commit()
@@ -22,8 +45,37 @@ def index():
             return redirect('/viewall')
         except:
             return 'Error'
+        
+        # if signup:
+        #     return redirect('/viewall')
+        # else:
+        #     return 'Error in logging in'
+        # print('success')
     else:
-        return render_template('index.html')
+        return render_template('signup.html')
+
+
+@app.route('/login',methods=['POST', 'GET'])
+def login():
+    if request.method == 'POST':
+        # filter_by() <--- uses to filter the records in the table before the first() method will
+        #                   execute/run
+        # filter_by() <--- means if will look for the username and password entered by the user in
+        #                   the form. both values should be on the same row/record
+        # first() <--- this method will display/return the first occurence of the entered vaules
+        login = Login.query.filter_by(uname=request.form['username'],password=request.form['password']).first()
+
+        # example: uname = test, password = a <--- query will return FALSE since both data DO NOT BELONG
+        #                                           to the same record
+        # uname = test, password = test <--- query will return TRUE since both BELONGS TO THE SAME RECORD
+        if login:
+            return redirect('/viewall')
+        else:
+            return 'Error in logging in'
+        print('success')
+    else:
+        return render_template('login.html')
+
 
 
 @app.route('/viewall')
@@ -64,24 +116,3 @@ def update(id):
             return 'Error in updating'
     else:
         return render_template('update.html', user=user)
-
-@app.route('/login',methods=['POST', 'GET'])
-def login():
-    if request.method == 'POST':
-        # filter_by() <--- uses to filter the records in the table before the first() method will
-        #                   execute/run
-        # filter_by() <--- means if will look for the username and password entered by the user in
-        #                   the form. both values should be on the same row/record
-        # first() <--- this method will display/return the first occurence of the entered vaules
-        login = Login.query.filter_by(uname=request.form['username'],password=request.form['password']).first()
-
-        # example: uname = test, password = a <--- query will return FALSE since both data DO NOT BELONG
-        #                                           to the same record
-        # uname = test, password = test <--- query will return TRUE since both BELONGS TO THE SAME RECORD
-        if login:
-            return redirect('/viewall')
-        else:
-            return 'Error in logging in'
-        print('success')
-    else:
-        return render_template('login.html')
