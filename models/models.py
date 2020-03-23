@@ -9,6 +9,15 @@ class Login(db.Model):
     password = db.Column(db.String(50), nullable=False)
     users = db.relationship("User", uselist=False, backref="login")
 
+class Signup(db.Model):
+    __tablename__ = "signup"
+    
+    id = db.Column(db.Integer,primary_key=True)
+    uname = db.Column(db.String(50), nullable=False)
+    password = db.Column(db.String(50), nullable=False)
+    users = db.relationship("User", uselist=False, backref="login")
+
+
 class User(db.Model):
     __tablename__ = 'users'
 
