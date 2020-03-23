@@ -1,0 +1,43 @@
+FLASK_APP=run.py
+flask run
+Activity:
+Create a to-do app
+1. create a new folder. folder's name is todo
+2. database to use todo
+models:
+	__init__.py
+	models.py
+	tables to create:
+		tablename = todo
+			id int PK
+			task string(255)
+			user_id int FK
+		tablename = user
+			id int PK
+			name string(255)
+			username string(50)
+			password string(50)
+templates:
+	index.html
+		--> contains hyperlink for sign up (signup.html) and login (login.html)
+	signup.html
+		--> form that asks the user to enter name, username, password
+		--> save to user table
+	login.html
+		---> form that asks user to enter username and password then redirects the user to todo.html
+	todo.html
+		---> form that asks the user to enter task
+		---> save to todo table
+		---> after saving user will be redirected to viewAllTasks.html
+	viewAllTasks.html
+		---> displays all records in the todo table in table format with actions Delete and Update
+		---> Delete action/link will delete the todo record from the table
+		---> Update action/link will update the record in the table
+files to create:
+	__init__.py
+	_env
+	config.py
+	database.py
+	app.py
+	views.py
+	run.py

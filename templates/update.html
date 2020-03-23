@@ -1,0 +1,16 @@
+{% extends 'layout.html' %}
+
+{% block title %}
+    <title>Update User</title>
+{% endblock%}
+{% block body %}
+    <div class='container'>
+        <form action="/update/{{user.id}}" method="post"> 
+            Name <input type="text" name="name" value={{user.name}} class="form-control w-50"><br>
+            Address <input type="text" name="address" value="{{user.address}}" class="form-control w-50"><br>
+            Number <input type="text" name="number" value="{{user.number}}" class="form-control w-50"><br>
+
+            <input type="submit" value="Update User" class="btn btn-success btn-block w-50">
+        </form>
+    </div>
+{% endblock%}

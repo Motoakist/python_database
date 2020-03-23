@@ -1,0 +1,91 @@
+.top {
+    canvas {
+      display: block;
+      /* vertical-align: bottom; */
+    }
+    
+    /* ---- particles.js container ---- */
+    
+    #particles-js {
+      position: absolute;
+      width: 100%;
+      // height: 100%;
+      height: 100vh;
+      background-color: #000000;
+      background-image: url("");
+      background-repeat: no-repeat;
+      background-size: cover;
+      background-position: 50% 50%;
+    }
+    height: 100vh;
+    width: 100%;
+    display: block;
+  
+    &-container {
+      width: 100%;
+      height: 100%;
+      position: relative;
+      &__box {
+        position: absolute;
+        color: white;/*文字は白に*/
+        font-weight: bold; /*太字に*/
+        font-size: 4em;/*サイズ2倍*/
+        font-family :Quicksand, sans-serif;/*Google Font*/
+        top: 45%;
+        left: 50%;
+        transform: translate(-50%, 0);
+  
+  
+        
+        /*
+        * Animation variables
+        */
+        $animationSteps: 20;
+        $animationDuration: 50;
+        $animationElement: span;
+        $animationElementsCount: 100;
+        $delayBetweenLetters: 0.2;
+      
+        /*
+          * Elements settings
+          */
+        #{$animationElement} {
+          animation-name: anim-text-flow-keys;
+          animation-duration: #{$animationDuration}s;
+          animation-iteration-count: infinite;
+          animation-direction: alternate;
+          animation-fill-mode: forwards;
+        }
+      
+        /*
+          * Keyframe loop
+          */
+        @keyframes anim-text-flow-keys {
+          @for $i from 0 through $animationSteps {
+            #{percentage($i * (1 / $animationSteps))} {
+              color: hsla(random(365), 60, 60, 1);
+            }
+          }
+        }
+      
+        /*
+          * Element animation delay loop
+          */
+        $totalDelayTime: $animationElementsCount * $delayBetweenLetters;
+      
+        @for $i from 1 through $animationElementsCount {
+          #{$animationElement}:nth-of-type(#{$i}) {
+            animation-delay: #{($i * $delayBetweenLetters) - $totalDelayTime}s;
+          }
+        }
+  
+  
+      }
+      p{
+        z-index: 1000000000;
+      }
+    }
+  
+  
+  }
+  

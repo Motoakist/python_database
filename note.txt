@@ -1,0 +1,21 @@
+Flask do init
+Flask do migrate
+Flask do upgrade
+
+To run flask application:
+    FLASK_APP=run.py
+    flask run
+
+form (inde.html) - insert, saving to tables
+                    - register 5 acounts
+
+viewall(viewall.html) - display ALL records
+from table
+
+query - SELECT
+.all() - SELECT * (SELECT ALL)
+order_by() - how do you want the data to be
+arranged, arrange in alphabetical order using
+the NAME
+↓これ
+user = User.query.order_by(User.name).all()
