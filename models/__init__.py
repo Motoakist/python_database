@@ -1,6 +1,7 @@
-from .models import User, Login
+from .models import User, Login, Signup
 
 __all__ = [
     "User",
-    "Login"
+    "Login",
+    "Signup"
 ]
