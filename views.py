@@ -2,13 +2,12 @@ from .database import db
 from .app import app
 from flask import Flask, render_template, request, redirect
 # url_for generates url (if you want to use css or codes which you made on your own)
-from .models import User, Login
+from .models import User, Login, Signup
 
 @app.route('/', methods=['POST','GET'])
 def index():
     if request.method == 'POST':
         login = Login(uname=request.form['username'], password=request.form['pass'])
-        
         try:
             db.session.add(login)
             db.session.commit()
