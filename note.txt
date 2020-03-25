@@ -1,3 +1,5 @@
+models.pyを変更した時、
+migrationsフォルダーを消してから
 Flask do init
 Flask do migrate
 Flask do upgrade

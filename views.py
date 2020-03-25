@@ -77,7 +77,9 @@ def login():
     else:
         return render_template('login.html')
 
-
+@app.route('/roomAlgebra')
+def roomAlgebra():
+    return render_template('roomAlgebra.html')
 
 @app.route('/viewall')
 def viewAll(): 
