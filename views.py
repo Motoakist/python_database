@@ -1,6 +1,6 @@
 from .database import db
 from .app import app
-from flask import Flask, render_template, request, redirect
+from flask import Flask, render_template, request, redirect, session, url_for
 # url_for generates url (if you want to use css or codes which you made on your own)
 from .models import User, Login, RoomAl1
 
@@ -65,8 +65,8 @@ def login():
         #                   the form. both values should be on the same row/record
         # first() <--- this method will display/return the first occurence of the entered vaules
         login = Login.query.filter_by(email=request.form['lemail'],password=request.form['lpass']).first()
-
-        # example: uname = test, password = a <--- query will return FALSE since both data DO NOT BELONG
+        session['id'] = login.id
+                # example: uname = test, password = a <--- query will return FALSE since both data DO NOT BELONG
         #                                           to the same record
         # uname = test, password = test <--- query will return TRUE since both BELONGS TO THE SAME RECORD
         if login:
@@ -77,34 +77,35 @@ def login():
     else:
         return render_template('login.html')
 
-# @app.route('/roomAlgebra/<int:id>', methods=['POST','GET'])
-# def roomAlgebra(id):
-#     roomAl1 = RoomAl1.query.all()
-#     user = User.query.get_or_404(id)
-    
-
-#     if request.method == 'POST':
-#         roomAl1 = RoomAl1(session=request.form['sentence'], user_id=request.form['user_id'])
-
-#         try:
-#             db.session.add(roomAl1)
-#             db.session.commit()
-#             user_id= request.form['user_id']
-#             uname = Login.query(login).join(roomAl1).filter(login.id==roomAl1.user_id) 
-#             print(user_id)
-#             return redirect(url_for('roomAlgebra',id=user_id))
-
-#         except:
-#             return 'Submit Error in room'
-            
-#     else:
-#         return render_template('roomAlgebra.html', user=user,roomAl1=roomAl1)
 @app.route('/roomAlgebra', methods=['POST','GET'])
 def roomAlgebra():
+    login_id = session['id']
     roomAl1 = RoomAl1.query.all()
-    user = User.query.all()
+    user = User.query.get_or_404(login_id)
     
-    return render_template('roomAlgebra.html', user=user,roomAl1=roomAl1)
+
+    if request.method == 'POST':
+        roomAl1 = RoomAl1(session=request.form['sentence'], user_id=request.form['user_id'])
+
+        try:
+            db.session.add(roomAl1)
+            db.session.commit()
+            user_id= request.form['user_id']
+            uname = Login.query(login).join(roomAl1).filter(login.id==roomAl1.user_id) 
+            print(user_id)
+            return redirect(url_for('roomAlgebra',id=user_id))
+
+        except:
+            return 'Submit Error in room'
+            
+    else:
+        return render_template('roomAlgebra.html', user=user,roomAl1=roomAl1)
+# @app.route('/roomAlgebra', methods=['POST','GET'])
+# def roomAlgebra():
+#     roomAl1 = RoomAl1.query.all()
+#     user = User.query.all()
+    
+#     return render_template('roomAlgebra.html', user=user,roomAl1=roomAl1)
 
 
 

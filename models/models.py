@@ -10,6 +10,7 @@ class Login(db.Model):
     email = db.Column(db.String(50), nullable=False)
     password = db.Column(db.String(50), nullable=False)
     users = db.relationship("User", uselist=False, backref="login")
+    roomAl1 = db.relationship("RoomAl1", uselist=False, backref="login")
 
 
 class User(db.Model):
@@ -26,4 +27,4 @@ class RoomAl1(db.Model):
 
     id = db.Column(db.Integer,primary_key=True)
     sentence = db.Column(db.String(300), nullable=False)
-    user_id = db.Column(db.Integer, db.ForeignKey('users.id'), nullable=False)
+    login_id = db.Column(db.Integer, db.ForeignKey('login.id'), nullable=False)
