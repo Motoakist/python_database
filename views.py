@@ -23,7 +23,18 @@ def index():
     #         return 'Error in logging in'
     #     print('success')
     # else:
-        return render_template('index.html')
+    login_id = session['id']
+    user = User.query.get_or_404(login_id)
+    Al1user = RoomAl1.query.order_by(RoomAl1.uname).all()
+    count = 0
+    for i in Al1user:
+        print(i.uname)
+        Al1user[count] = i.uname
+        count += 1
+        print("Al1usser",Al1user)
+    Al1user = list(set(Al1user))
+    print(Al1user)
+    return render_template('index.html',user=user,Al1user=Al1user)
 
 @app.route('/signup',methods=['POST', 'GET'])
 def signup():

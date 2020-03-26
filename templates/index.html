@@ -4,29 +4,40 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="../static/css/index.css">
+    <!-- <link rel="stylesheet" href="../static/css/top.css"> -->
     <title>Document</title>
 </head>
 <body>
+    <div class="logo">
+        <img src="../static/img/logo.png" alt="">
+    </div>
+    <h1>Welcome {{user.username}}!</h1>
     <div class="cards">
         <div class="card">
             <div class="card__image-holder">
                 <img class="card__image" src="https://source.unsplash.com/300x225/?wave" alt="wave" />
             </div>
             <div class="card-title">
-                <a href="#" class="toggle-info btn">
+                <div class="cover">
+                    <a href="#" class="toggle-info btn">
+                </div>
                 <span class="left"></span>
                 <span class="right"></span>
                 </a>
                 <h2>
                     
-                    線形代数Ⅰ
+                    Linear algebra Ⅰ
                     
                     <!-- <small>Image from unsplash.com</small> -->
                 </h2>
             </div>
             <div class="card-flap flap1">
                 <div class="card-description">
-                This grid is an attempt to make something nice that works on touch devices. Ignoring hover states when they're not available etc.
+                    List of Participants<br>
+                    {% for i in Al1user%}
+                        
+                        {{i}}
+                    {% endfor%}
                 </div>
                 
                 <div class="card-flap flap2">
@@ -50,7 +61,7 @@
                 <span class="right"></span>
                 </a>
                 <h2>
-                    線形代数Ⅱ
+                    Linear algebraⅡ
                     
                 </h2>
             </div>
@@ -76,7 +87,8 @@
               <span class="right"></span>
             </a>
             <h2>
-                確率・統計
+                
+                Probability and statistics
                 
             </h2>
           </div>
@@ -102,7 +114,8 @@
               <span class="right"></span>
             </a>
             <h2>
-                確率・統計応用
+                
+                Calculus
                 
             </h2>
           </div>
@@ -128,7 +141,7 @@
               <span class="right"></span>
             </a>
             <h2>
-                微分積分
+                Calculus Advance
                 
             </h2>
           </div>
@@ -154,7 +167,7 @@
               <span class="right"></span>
             </a>
             <h2>
-                微分積分応用
+                Electronic circuit
                 
             </h2>
           </div>
@@ -180,7 +193,7 @@
               <span class="right"></span>
             </a>
             <h2>
-                電子回路
+                Multivariate analysis
                 
             </h2>
           </div>
@@ -206,7 +219,7 @@
               <span class="right"></span>
             </a>
             <h2>
-                多変量解析
+                Logic circuit
                
             </h2>
           </div>
@@ -232,7 +245,7 @@
               <span class="right"></span>
             </a>
             <h2>
-                論理回路
+                Operating system
                 
             </h2>
           </div>

@@ -1,91 +1,89 @@
-.top {
-    canvas {
-      display: block;
-      /* vertical-align: bottom; */
-    }
-    
-    /* ---- particles.js container ---- */
-    
-    #particles-js {
-      position: absolute;
-      width: 100%;
-      // height: 100%;
-      height: 100vh;
-      background-color: #000000;
-      background-image: url("");
-      background-repeat: no-repeat;
-      background-size: cover;
-      background-position: 50% 50%;
-    }
-    height: 100vh;
-    width: 100%;
-    display: block;
-  
-    &-container {
-      width: 100%;
-      height: 100%;
-      position: relative;
-      &__box {
-        position: absolute;
-        color: white;/*文字は白に*/
-        font-weight: bold; /*太字に*/
-        font-size: 4em;/*サイズ2倍*/
-        font-family :Quicksand, sans-serif;/*Google Font*/
-        top: 45%;
-        left: 50%;
-        transform: translate(-50%, 0);
-  
-  
-        
-        /*
-        * Animation variables
-        */
-        $animationSteps: 20;
-        $animationDuration: 50;
-        $animationElement: span;
-        $animationElementsCount: 100;
-        $delayBetweenLetters: 0.2;
-      
-        /*
-          * Elements settings
-          */
-        #{$animationElement} {
-          animation-name: anim-text-flow-keys;
-          animation-duration: #{$animationDuration}s;
-          animation-iteration-count: infinite;
-          animation-direction: alternate;
-          animation-fill-mode: forwards;
-        }
-      
-        /*
-          * Keyframe loop
-          */
-        @keyframes anim-text-flow-keys {
-          @for $i from 0 through $animationSteps {
-            #{percentage($i * (1 / $animationSteps))} {
-              color: hsla(random(365), 60, 60, 1);
-            }
-          }
-        }
-      
-        /*
-          * Element animation delay loop
-          */
-        $totalDelayTime: $animationElementsCount * $delayBetweenLetters;
-      
-        @for $i from 1 through $animationElementsCount {
-          #{$animationElement}:nth-of-type(#{$i}) {
-            animation-delay: #{($i * $delayBetweenLetters) - $totalDelayTime}s;
-          }
-        }
-  
-  
-      }
-      p{
-        z-index: 1000000000;
-      }
-    }
-  
-  
-  }
-  
+@mixin center {
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+}
+//Completely customizable
+//--
+$font-size: 40px;
+$letter-spacing: 0.0625em; //This counts for 1px on 16px font;
+$letter-count: 20; //Number of letters in text !important
+$transition-time: 3s; //Typing speed
+$bg-color: #eff5ed;
+$mask-color: #eff5ed; //Change it to see how this works :)
+$font-color: #152860;
+
+$letter-size: calc(1ch + #{$letter-spacing});
+$cursor-width: 1px; //Change this to $letter-size if you want Insert:active effect
+//--
+$cursor-blink-duration: $letter-count;
+$font-width: calc(#{$letter-count}ch + #{$letter-count}*#{$letter-spacing});
+
+*, *:after, *:before {
+	box-sizing: border-box;
+	margin: 0;
+	padding: 0;
+}
+
+body {
+	background: #eff5ed;
+	font-family: courier, serif; //Need monospace font for this to work
+	text-align: center;
+    -webkit-font-smoothing: antialiased;
+}
+
+.hello {
+	@include center;
+	top: 25%;
+
+	h1 {
+		position: relative;
+	    color: $font-color;
+	    text-align: center;
+	    white-space: nowrap;
+		font-size: $font-size;
+		letter-spacing: $letter-spacing;
+		width: $font-width;
+
+	    &:after {
+			display: block;
+			position: absolute;
+			content: '';
+			width: $font-width;
+			height: 2ex;
+			left: 0;
+			top: 0;
+			background: $mask-color;
+			animation: .6s blink $cursor-blink-duration, move $transition-time 1.5s forwards steps(1);
+			border-left: $cursor-width solid $font-color;
+			box-shadow: 0px 1ex 0px 0px $mask-color;
+
+			@keyframes move {
+				@for $i from 1 through $letter-count {
+					$temp: 100/$letter-count;
+					$percent: $i*$temp;
+					#{$percent}% {
+						width: calc(#{$font-width} - (#{$i}ch + #{$i}*#{$letter-spacing}));
+						left: calc(#{$i}ch + #{$i}*#{$letter-spacing});
+					}
+				}
+			}
+
+			@keyframes blink {
+				0% {
+			  		border-left-color: $font-color;
+				}
+				50% {
+			  		border-left-color: $font-color;
+				}
+				51% {
+			  		border-left-color: $mask-color;
+				}
+				100% {
+			  		border-left-color: $mask-color;
+				}
+			}
+	  	}
+	}
+}

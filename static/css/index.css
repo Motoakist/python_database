@@ -40,6 +40,34 @@ body {
   font-family: 'Source Sans Pro', sans-serif;
   text-rendering: optimizeLegibility;
 }
+.logo {
+  text-align: center;
+  width: 200px;
+  margin: 0 auto;
+}
+.logo img {
+  width: 200px;
+}
+@-webkit-keyframes typing {
+  from {
+    width: 0;
+  }
+}
+@-webkit-keyframes blink-caret {
+  50% {
+    border-color: transparent;
+  }
+}
+h1 {
+  font: bold 300% Consolas, Monaco, monospace;
+  border-right: 0.1em solid black;
+  width: 16.5em;
+  width: 14ch;
+  margin: auto;
+  white-space: nowrap;
+  overflow: hidden;
+  -webkit-animation: typing 2s steps(21, end), blink-caret 0.5s step-end infinite alternate;
+}
 a.btn {
   background: #0096a0;
   border-radius: 4px;
@@ -103,6 +131,7 @@ div.card div.card-title a.toggle-info {
   right: 15px;
   top: 10px;
   width: 32px;
+  pointer-events: none;
 }
 div.card div.card-title a.toggle-info span {
   background: #ffffff;
@@ -178,6 +207,7 @@ div.card.show {
 }
 div.card.show div.card-title a.toggle-info {
   background: #ff6666 !important;
+  pointer-events: none;
 }
 div.card.show div.card-title a.toggle-info span {
   top: 15px;
