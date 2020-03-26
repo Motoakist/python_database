@@ -5,8 +5,6 @@ class Login(db.Model):
     __tablename__ = 'login'
 
     id = db.Column(db.Integer,primary_key=True)
-    # firstname = db.Column(db.String(50), nullable=False)
-    # lastname = db.Column(db.String(50), nullable=False)
     email = db.Column(db.String(50), nullable=False)
     password = db.Column(db.String(50), nullable=False)
     users = db.relationship("User", uselist=False, backref="login")
@@ -21,10 +19,13 @@ class User(db.Model):
     lname = db.Column(db.String(255), nullable=False)
     username = db.Column(db.String(255), nullable=False)
     login_id = db.Column(db.Integer, db.ForeignKey('login.id'), nullable=False)
+    roomAl1 = db.relationship("RoomAl1", uselist=False, backref="users")
 
 class RoomAl1(db.Model):
     __tablename__ = 'roomAl1'
 
+    # uname = db.Column(db.String(255), nullable=False)
     id = db.Column(db.Integer,primary_key=True)
-    sentence = db.Column(db.String(300), nullable=False)
+    uname = db.Column(db.String(255), db.ForeignKey('users.username'), nullable=False)
+    sentence = db.Column(db.String(255), nullable=False)
     login_id = db.Column(db.Integer, db.ForeignKey('login.id'), nullable=False)

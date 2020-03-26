@@ -80,26 +80,35 @@ def login():
 @app.route('/roomAlgebra', methods=['POST','GET'])
 def roomAlgebra():
     login_id = session['id']
-    roomAl1 = RoomAl1.query.all()
     user = User.query.get_or_404(login_id)
+    roomAl1 = RoomAl1.query.all()
+    # roomAl1 = Login.query(login).join(roomAl1).filter(login.id==roomAl1.login_id)
+    print("ルーム一覧",roomAl1)
+    # images = request.files['image']
+    # pic_name = images.filename
+    # print(pic_name)
     
 
     if request.method == 'POST':
-        roomAl1 = RoomAl1(session=request.form['sentence'], user_id=request.form['user_id'])
+        roomAl1 = RoomAl1(sentence=request.form['sentence'], uname=request.form['uname'],login_id=request.form['user_id'])
+        print("さとも",roomAl1)
+        # try:
+        db.session.add(roomAl1)
+        db.session.commit()
+        user_id= request.form['user_id']
+        # uname = Login.query(login).join(roomAl1).filter(login.id==roomAl1.login_id)
+        # uname = db.session.query(Login).join(roomAl1).filter(login.id==roomAl1.login_id)
+        print("formユーザーid",user_id)
+        return redirect('/roomAlgebra')
 
-        try:
-            db.session.add(roomAl1)
-            db.session.commit()
-            user_id= request.form['user_id']
-            uname = Login.query(login).join(roomAl1).filter(login.id==roomAl1.user_id) 
-            print(user_id)
-            return redirect(url_for('roomAlgebra',id=user_id))
-
-        except:
-            return 'Submit Error in room'
+        # except:
+        #     print("formユーザーid",user_id)
+        #     print("roomユーザーid",roomAl1.login_id)
+        #     return 'Submit Error in room'
             
     else:
         return render_template('roomAlgebra.html', user=user,roomAl1=roomAl1)
+    # return render_template('roomAlgebra.html')
 # @app.route('/roomAlgebra', methods=['POST','GET'])
 # def roomAlgebra():
 #     roomAl1 = RoomAl1.query.all()

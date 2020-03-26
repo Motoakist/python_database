@@ -5,6 +5,8 @@ python -m pip install flask SQLAlchemy flask-sqlalchemy PyMySQL python-dotenv
 pip install flask-migrate
 FLASK_APP=run.py
 flask run
+pip install Flask-Session
+
 models.pyを変更した時、
 migrationsフォルダーを消してから
 Flask db init
