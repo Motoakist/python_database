@@ -29,3 +29,4 @@ class RoomAl1(db.Model):
     uname = db.Column(db.String(255), db.ForeignKey('users.username'), nullable=False)
     sentence = db.Column(db.String(255), nullable=False)
     login_id = db.Column(db.Integer, db.ForeignKey('login.id'), nullable=False)
+    pic = db.Column(db.String(100), nullable=False)

@@ -3,7 +3,9 @@ from .app import app
 from flask import Flask, render_template, request, redirect, session, url_for
 # url_for generates url (if you want to use css or codes which you made on your own)
 from .models import User, Login, RoomAl1
+import os
 
+app.config["IMAGE_UPLOADS"] = 'static/img'
 @app.route('/', methods=['POST','GET'])
 def index():
     # if request.method == 'POST':
@@ -32,6 +34,8 @@ def signup():
         # login = Login.query.filter_by(email=request.form['lemail'],password=request.form['lpass']).first()
         
         try:
+
+            
             db.session.add(signup)
             db.session.commit()
 
@@ -77,6 +81,7 @@ def login():
     else:
         return render_template('login.html')
 
+app.config["IMAGE_UPLOADS"] = 'static/img'
 @app.route('/roomAlgebra', methods=['POST','GET'])
 def roomAlgebra():
     login_id = session['id']
@@ -88,9 +93,21 @@ def roomAlgebra():
     # pic_name = images.filename
     # print(pic_name)
     
+    
 
     if request.method == 'POST':
-        roomAl1 = RoomAl1(sentence=request.form['sentence'], uname=request.form['uname'],login_id=request.form['user_id'])
+        images = request.files['image']
+        pic_name = images.filename
+        print(pic_name)
+
+        # line below means saving/putting the image into the specified path defined in
+        # app.config ["IMAGE_UPLOADS"]
+        # path.join means picture is saved in static/image/filename.jpg
+        images.save(os.path.join(app.config["IMAGE_UPLOADS"], images.filename))
+
+        roomAl1 = RoomAl1(sentence=request.form['sentence'], uname=request.form['uname'],login_id=request.form['user_id'], pic=pic_name)
+        # roomAl1 = RoomAl1(sentence=request.form['sentence'], uname=request.form['uname'],login_id=request.form['user_id'])
+
         print("さとも",roomAl1)
         # try:
         db.session.add(roomAl1)
