@@ -1,12 +1,58 @@
-<!-- {% extends 'roomLayout.html' %} -->
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-</head>
-<body>
-    <p>test</p>
-</body>
-</html>
+{% extends 'roomLayout.html' %}
+
+
+
+{% block body %}
+    <div class="container">
+        <h1>線形代数</h1>
+        <!-- users|length ~~ this checks if there are records in the variable users (from views.py) -->
+        {% if roomAL1|length < 1 %}
+            <!-- if there are no records... it will display this message -->
+            <h3 class="text-danger">Zero posts</h3>
+        {% else %}
+            <!-- if there is content/records in user it will execute the code in the ELSE STATEMENT -->
+
+            <!-- code in here displays ALL THE RECORDS in TABLE FORMAT -->
+            <table class="table table-striped">
+                <tr>
+                    <th>Username</th>
+                    <th>sentence</th>
+                    
+                </tr>
+                <!-- looping through ALL THE RECORDS from views.py -->
+                {%for sen in roomAL1 %}
+                    <tr>
+                        <!-- displaying of the records one at a time -->
+                        <td></td>
+                        <td>{{sen.sentence}}</td>
+                        
+                    </tr>
+                {% endfor %}
+            </table>
+        {% endif %}
+
+
+        <div class="card-footer">
+            
+           
+            <div class="row">
+                <div class="col-lg-12">
+                    <h3>join discussion</h3>
+                    <form action="/roomAlgebra/{{user.id}}" method="post">
+                        <div class="card">
+                            <div class="card-body">
+                                <input type="text" name="sentence" placeholder="Write something here" class="form-control">
+                                <input type="hidden" name="user_id" value="{{user.id}}">
+                            </div>
+                            <div class="card-footer">
+                                <i class="far fa-image"><input type="file" name="photo" id="" ></i>
+                                <input type="submit" value="Submit" class="btn btn-success float-right">
+
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
