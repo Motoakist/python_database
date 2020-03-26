@@ -2,7 +2,7 @@ from .database import db
 from .app import app
 from flask import Flask, render_template, request, redirect
 # url_for generates url (if you want to use css or codes which you made on your own)
-from .models import User, Login
+from .models import User, Login, RoomAl1
 
 @app.route('/', methods=['POST','GET'])
 def index():
@@ -38,7 +38,7 @@ def signup():
             db.session.refresh(signup)
             print(signup.id)
 
-            user  = User(login_id=signup.id, fname=request.form['fname'], lname=request.form['lname'])
+            user  = User(login_id=signup.id, fname=request.form['fname'], lname=request.form['lname'],username=request.form['username'])
             db.session.add(user)
             db.session.commit()
 
@@ -77,9 +77,38 @@ def login():
     else:
         return render_template('login.html')
 
-@app.route('/roomAlgebra')
+# @app.route('/roomAlgebra/<int:id>', methods=['POST','GET'])
+# def roomAlgebra(id):
+#     roomAl1 = RoomAl1.query.all()
+#     user = User.query.get_or_404(id)
+    
+
+#     if request.method == 'POST':
+#         roomAl1 = RoomAl1(session=request.form['sentence'], user_id=request.form['user_id'])
+
+#         try:
+#             db.session.add(roomAl1)
+#             db.session.commit()
+#             user_id= request.form['user_id']
+#             uname = Login.query(login).join(roomAl1).filter(login.id==roomAl1.user_id) 
+#             print(user_id)
+#             return redirect(url_for('roomAlgebra',id=user_id))
+
+#         except:
+#             return 'Submit Error in room'
+            
+#     else:
+#         return render_template('roomAlgebra.html', user=user,roomAl1=roomAl1)
+@app.route('/roomAlgebra', methods=['POST','GET'])
 def roomAlgebra():
-    return render_template('roomAlgebra.html')
+    roomAl1 = RoomAl1.query.all()
+    user = User.query.all()
+    
+    return render_template('roomAlgebra.html', user=user,roomAl1=roomAl1)
+
+
+
+
 
 @app.route('/viewall')
 def viewAll(): 
