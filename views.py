@@ -100,7 +100,19 @@ def roomAlgebra():
     print("ルーム一覧",roomAl1)
     
     if request.method == 'POST':
-        # if 'image' not in request.files:
+        if 'image' not in request.files:
+            
+            roomAl1 = RoomAl1(sentence=request.form['sentence'], uname=request.form['uname'],login_id=request.form['user_id'],pic=0)
+            # try:
+            db.session.add(roomAl1)
+            db.session.commit()
+            user_id= request.form['user_id']
+            # uname = Login.query(login).join(roomAl1).filter(login.id==roomAl1.login_id)
+            # uname = db.session.query(Login).join(roomAl1).filter(login.id==roomAl1.login_id)
+            print("formユーザーid",user_id)
+            print("はいってる")
+            return redirect('/roomAlgebra')
+        else:
             images = request.files['image']
             pic_name = images.filename
             print(pic_name)
@@ -113,6 +125,7 @@ def roomAlgebra():
             # uname = Login.query(login).join(roomAl1).filter(login.id==roomAl1.login_id)
             # uname = db.session.query(Login).join(roomAl1).filter(login.id==roomAl1.login_id)
             print("formユーザーid",user_id)
+            print("はいってない")
             return redirect('/roomAlgebra')
 
             # except:
