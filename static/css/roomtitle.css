@@ -4,6 +4,9 @@ body {
   background-size: 200vh;
   background-attachment: fixed;
 }
+.col-lg-2 img {
+  width: 200px;
+}
 h1 {
   font-family: "Avant Garde", Avantgarde, "Century Gothic", CenturyGothic, "AppleGothic", sans-serif;
   font-size: 62px;
