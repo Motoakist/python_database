@@ -54,8 +54,7 @@ def signup():
             user  = User(login_id=signup.id, fname=request.form['fname'], lname=request.form['lname'],username=request.form['username'])
             db.session.add(user)
             db.session.commit()
-            
-            
+            session['id'] = user.id
 
             return redirect('/')
         except:
@@ -66,9 +65,6 @@ def signup():
         # else:
         #     return 'Error in logging in'
         # print('success')
-
-        # login = Login.query.filter_by(email=request.form['lemail'],password=request.form['lpass']).first()
-        # session['id'] = login.id
     else:
         return render_template('signup.html')
 
