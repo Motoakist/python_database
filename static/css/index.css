@@ -35,8 +35,9 @@
   src: local('Source Sans Pro Black'), local('SourceSansPro-Black'), url(https://fonts.gstatic.com/s/sourcesanspro/v13/6xKydSBYKcSV-LCoeQqfX1RYOo3iu4nwlxdr.ttf) format('truetype');
 }
 body {
-  background: #dce1df;
-  color: #4f585e;
+  background-image: url("../img/green.jpg");
+  background-size: 200vh;
+  background-attachment: fixed;
   font-family: 'Source Sans Pro', sans-serif;
   text-rendering: optimizeLegibility;
 }

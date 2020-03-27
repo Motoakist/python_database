@@ -28,10 +28,8 @@ def index():
     Al1user = RoomAl1.query.order_by(RoomAl1.uname).all()
     count = 0
     for i in Al1user:
-        print(i.uname)
         Al1user[count] = i.uname
         count += 1
-        print("Al1usser",Al1user)
     Al1user = list(set(Al1user))
     print(Al1user)
     return render_template('index.html',user=user,Al1user=Al1user)
