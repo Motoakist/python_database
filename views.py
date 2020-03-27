@@ -54,6 +54,8 @@ def signup():
             user  = User(login_id=signup.id, fname=request.form['fname'], lname=request.form['lname'],username=request.form['username'])
             db.session.add(user)
             db.session.commit()
+            
+            
 
             return redirect('/')
         except:
@@ -64,6 +66,9 @@ def signup():
         # else:
         #     return 'Error in logging in'
         # print('success')
+
+        # login = Login.query.filter_by(email=request.form['lemail'],password=request.form['lpass']).first()
+        # session['id'] = login.id
     else:
         return render_template('signup.html')
 
@@ -100,7 +105,7 @@ def roomAlgebra():
     print("ルーム一覧",roomAl1)
     
     if request.method == 'POST':
-        if 'image' not in request.files:
+        if 'photo' not in request.files:
             
             roomAl1 = RoomAl1(sentence=request.form['sentence'], uname=request.form['uname'],login_id=request.form['user_id'],pic=0)
             # try:
